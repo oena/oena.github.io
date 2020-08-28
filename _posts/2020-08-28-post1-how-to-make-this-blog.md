@@ -31,13 +31,13 @@ Then on that page, change the Repository name (should be the first box you see o
 
 ## 3. You now have a site! :tada: Customize it. 
 
-You can see your site at *[your Github username].github.io. You'll notice that it's (for now) just the Beautiful Jekyll default, so you probably want to customize it from here. Some things to do: 
+You can see your site at **[your Github username].github.io**. You'll notice that it's (for now) just the Beautiful Jekyll default, so you probably want to customize it from here. Some things to do: 
 
 ### Change your _config.yml file
 
 This file basically sets up the structure of the website (so, go here to change the title, avatar, social media icon links, etc). It looks a little intimidating at first, but Beautiful Jekyll has very helpfully commented most fields to help you figure out what they're for. 
 
-For example, you might want to change the avatar from the little Github Octocat logo. You'll notice that the `avatar:` field points to an image in the `/assets/img/` directory. If you upload a new image in this directory and change the path to that, your avatar will change too! 
+For example, you might want to change the avatar from the little Github Octocat logo. You'll notice that the `avatar` field points to an image in the `/assets/img/` directory. If you upload a new image in this directory and change the path to that, your avatar will change too! 
 
 ### Add a post
 
@@ -51,4 +51,5 @@ Separate pages from the main blog (by default, these are listed in the navigatio
 
 The [Beautiful Jekyll repository's README page](https://github.com/daattali/beautiful-jekyll/blob/master/README.md) contains a *lot* of other things you can tweak or change, as well as examples of blogs made with Beautiful Jekyll that you can look at for inspiration. Have fun!
 
+And lastly, [here's](https://github.com/oena/oena.github.io) my repo for this site. 
 
