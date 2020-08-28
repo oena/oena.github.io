@@ -49,6 +49,6 @@ Separate pages from the main blog (by default, these are listed in the navigatio
 
 ### Other things
 
-The (Beautiful Jekyll repository's README page)[https://github.com/daattali/beautiful-jekyll/blob/master/README.md] contains a *lot* of other things you can tweak or change, as well as examples of blogs made with Beautiful Jekyll that you can look at for inspiration. Have fun!
+The [Beautiful Jekyll repository's README page](https://github.com/daattali/beautiful-jekyll/blob/master/README.md) contains a *lot* of other things you can tweak or change, as well as examples of blogs made with Beautiful Jekyll that you can look at for inspiration. Have fun!
 
 
