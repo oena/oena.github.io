@@ -25,7 +25,7 @@ This creates a copy of the repository in your Github account; it should appear a
 
 First, click on the "Settings" button: 
 
-![Image of settings button]({{ site.url }}assets/img/post1_pic2.png)
+![Image of settings button]({{ site.url }}/assets/img/post1_pic2.png)
 
 Then on that page, change the Repository name (should be the first box you see on the page) to **[your Github username].github.io**. Github hosts your website at this site for you, so it doesn't make sense to make it something else here (side note: you can use [custom domains](https://docs.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site), but I won't get into that here). 
 
