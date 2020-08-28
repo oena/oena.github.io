@@ -17,7 +17,7 @@ Note. I'm assuming you have a Github account before you begin. If not, you can s
 
 Go to the [Beautiful Jekyll repository](https://github.com/daattali/beautiful-jekyll) and click the **Fork** button: 
 
-! [Image of beautiful-jekyll repo] (https://github.com/oena/oena.github.io/blob/master/assets/img/post1_pic1.png)
+![Image of beautiful-jekyll repo](https://github.com/oena/oena.github.io/blob/master/assets/img/post1_pic1.png)
 
 This creates a copy of the repository in your Github account; it should appear as a repository in your own account. 
 
@@ -25,7 +25,7 @@ This creates a copy of the repository in your Github account; it should appear a
 
 First, click on the "Settings" button: 
 
-![Image of settings button] (https://github.com/oena/oena.github.io/blob/master/assets/img/post1_pic2.png)
+![Image of settings button](https://github.com/oena/oena.github.io/blob/master/assets/img/post1_pic2.png)
 
 Then on that page, change the Repository name (should be the first box you see on the page) to **[your Github username].github.io**. Github hosts your website at this site for you, so it doesn't make sense to make it something else here (side note: you can use [custom domains](https://docs.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site), but I won't get into that here). 
 
