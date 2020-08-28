@@ -17,7 +17,7 @@ Note. I'm assuming you have a Github account before you begin. If not, you can s
 
 Go to the [Beautiful Jekyll repository](https://github.com/daattali/beautiful-jekyll) and click the **Fork** button: 
 
-![Image of beautiful-jekyll repo](https://github.com/oena/oena.github.io/blob/master/assets/img/post1_pic1.png)
+[![Image of beautiful-jekyll repo]({{ site.url }}/assets/img/post1_pic1.png)]
 
 This creates a copy of the repository in your Github account; it should appear as a repository in your own account. 
 
