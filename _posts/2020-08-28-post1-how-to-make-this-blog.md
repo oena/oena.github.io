@@ -29,7 +29,7 @@ First, click on the "Settings" button:
 
 Then on that page, change the Repository name (should be the first box you see on the page) to **[your Github username].github.io**. Github hosts your website at this site for you, so it doesn't make sense to make it something else here (side note: you can use [custom domains](https://docs.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site), but I won't get into that here). 
 
-## 3. You now have a site! :tada: Customize it. 
+## 3. You now have a site! Customize it. 
 
 You can see your site at **[your Github username].github.io**. You'll notice that it's (for now) just the Beautiful Jekyll default, so you probably want to customize it from here. Some things to do: 
 
