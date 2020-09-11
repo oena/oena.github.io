@@ -9,7 +9,7 @@ comments: false
 readtime: true
 ---
 
-I recently solved three [Project Euler](https://projecteuler.net/) problems: one solved by fewer than 500,000 people ("Problem 1"), one solved by fewer than 100,000 people ("Problem 2"), and one solved by fewer than 25,000 people ("Problem 3). You can find my code for my solutions [here](https://github.com/oena/oena.github.io/blob/master/ipynbs/Project_Euler_Problems.ipynb); in this post, I'll just explain my reasoning behind the approach I took. 
+I recently solved three [Project Euler](https://projecteuler.net/) problems: one solved by fewer than 500,000 people ("Problem 1"), one solved by fewer than 100,000 people ("Problem 2"), and one solved by fewer than 25,000 people ("Problem 3"). You can find my code for my solutions [here](https://github.com/oena/oena.github.io/blob/master/ipynbs/Project_Euler_Problems.ipynb); in this post, I'll just explain my reasoning behind the approach I took. 
 
 ## Problem 1 (Actually Problem 7 in Project Euler) 
 
