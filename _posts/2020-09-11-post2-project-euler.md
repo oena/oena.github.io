@@ -4,7 +4,7 @@ title: Solving some Project Euler problems
 #subtitle: Or, how I made this blog
 #gh-repo: oena/oena.github.io
 #gh-badge: [star, fork, follow]
-tags: [blog, jekyll, Github Pages]
+tags: [python, Project Euler, statistics]
 comments: false
 readtime: true
 ---
