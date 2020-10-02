@@ -1,10 +1,16 @@
-## Tidy Tuesday: Malaria dataset visualizations 
+--
+layout: post
+title: A (very late) Tidy Tuesday
+#subtitle: Practicing Python visualizations with malaria data
+#gh-repo: oena/oena.github.io
+#gh-badge: [star, fork, follow]
+tags: [python, visualizations, malaria]
+comments: false
+readtime: true
+---
 
-Some plots from [this tidy Tuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-11-13) data set.
+To practice making visualizations in Python, I'll be using data from [this tidy Tuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-11-13) data set. Let's get started! 
 
-October 2nd, 2020
-
------------
 
 ### 0. Setup and Get Data 
 
