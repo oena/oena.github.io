@@ -9,12 +9,12 @@ comments: false
 readtime: true
 ---
 
-
-Some plots from [this tidy Tuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-11-13) data set.
+To practice making plots in Python, I'll be using [this tidy Tuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-11-13) data set from 2018. Briefly, it shows death rates from Malaria by country, age group, and year. Let's get started! 
 
 
 ### 0. Setup and Get Data 
 
+Packages needed: 
 
 ```python
 %matplotlib inline 
@@ -25,6 +25,7 @@ import plotly.io as pio
 pio.renderers.default = "notebook"
 ```
 
+Read in the dataset and take a peek: 
 
 ```python
 # Looking at the dataset corresponding to Malaria deaths by age across
@@ -169,6 +170,7 @@ malaria_deaths_df
 </div>
 
 
+Now let's answer some questions. First: 
 
 ### 1. How much do malaria deaths change across age groups by year?
 
@@ -178,12 +180,7 @@ malaria_deaths_df
 malaria_deaths_df["age_group"].unique()
 ```
 
-
-
-
-    array(['Under 5', '70 or older', '5-14', '15-49', '50-69'], dtype=object)
-
-
+> array(['Under 5', '70 or older', '5-14', '15-49', '50-69'], dtype=object)
 
 
 ```python
@@ -215,10 +212,7 @@ First, what are the countries represented? Any non-countries included in the cou
 malaria_deaths_df["entity"].unique()
 ```
 
-
-
-
-    array(['Afghanistan', 'Albania', 'Algeria', 'American Samoa',
+>  array(['Afghanistan', 'Albania', 'Algeria', 'American Samoa',
            'Andean Latin America', 'Andorra', 'Angola', 'Antigua and Barbuda',
            'Argentina', 'Armenia', 'Australasia', 'Australia', 'Austria',
            'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados',
@@ -270,7 +264,6 @@ malaria_deaths_df["entity"].unique()
            'Venezuela', 'Vietnam', 'Wales', 'Western Europe',
            'Western Sub-Saharan Africa', 'World', 'Yemen', 'Zambia',
            'Zimbabwe'], dtype=object)
-
 
 
 Mostly seems fine, but let's exclude regions (eg. "World", "Sub-Saharan Africa", etc) since we just want to look at this by country. We also need to reorganize the data a little, because we only want the under 5 data, and we want it averaged by year. 
@@ -401,54 +394,6 @@ malaria_under5_avg_deaths.head()
 
 
 ```python
-malaria_under5_deaths.loc[malaria_under5_deaths["deaths"] == malaria_under5_deaths["deaths"].max()]
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Unnamed: 0</th>
-      <th>entity</th>
-      <th>code</th>
-      <th>year</th>
-      <th>age_group</th>
-      <th>deaths</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>3906</th>
-      <td>3907</td>
-      <td>Nigeria</td>
-      <td>NGA</td>
-      <td>2008</td>
-      <td>Under 5</td>
-      <td>261794.558211</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-```python
 fig = go.Figure(data=go.Choropleth(
     locationmode = "country names",
     locations = malaria_under5_avg_deaths["entity"],
@@ -514,8 +459,6 @@ p.fig.suptitle("Correlation of malaria deaths: 1990-2016, children under 5")
 
 
 
-
-    Text(0.5, 0.98, 'Correlation of malaria deaths: 1990-2016, children under 5')
 
 
 
