@@ -462,7 +462,7 @@ p.fig.suptitle("Correlation of malaria deaths: 1990-2016, children under 5")
 
 
 
-![Image of heatmap]({{ site.url }}/assets/img/output_19_1.png)
+![Image of time series plot]({{ site.url }}/assets/img/output_18_1.png)
 
 
 Unsurprisingly, all of the correlation values are fairly high; however, it's surprising that Nigeria's malaria death rates (in the under 5 age group) are most correlated with Ghana and the Central African Republic, which do not immediately border it. 
