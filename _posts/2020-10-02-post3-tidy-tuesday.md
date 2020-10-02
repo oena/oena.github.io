@@ -199,13 +199,8 @@ age_orders = ["Under 5", "5-14", "15-49", "50-69", "70 or older"]
     set_title("Malaria deaths across time, by age group")
 )
 ```
-
-
-
-
-    Text(0.5, 1.0, 'Malaria deaths across time, by age group')
-
-
+    
+    
 ![Image of time series plot]({{ site.url }}/assets/img/output_6_1.png)
 
 
