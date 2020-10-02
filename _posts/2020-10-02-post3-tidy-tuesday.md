@@ -206,9 +206,7 @@ age_orders = ["Under 5", "5-14", "15-49", "50-69", "70 or older"]
     Text(0.5, 1.0, 'Malaria deaths across time, by age group')
 
 
-
-
-![png](output_6_1.png)
+![Image of time series plot]({{ site.url }}/assets/img/output_6_1.png)
 
 
 Wow, deaths in the "Under 5" age group seem disproportionately high. We can see in the plot above that there is some variation by year, but on the whole deaths in the under 5 group range between 12,000-15,000 or so. So, let's take the average in the under 5 age group and see if there are any patterns by country. 
@@ -455,21 +453,6 @@ malaria_under5_deaths.loc[malaria_under5_deaths["deaths"] == malaria_under5_deat
 </div>
 
 
-
-
-```python
-import os 
-os.getcwd()
-```
-
-
-
-
-    '/Users/oana/Documents/github/oena.github.io/ipynbs'
-
-
-
-
 ```python
 fig = go.Figure(data=go.Choropleth(
     locationmode = "country names",
@@ -490,6 +473,8 @@ fig.update_layout(
 # Write to html so you can see it outside of this notebook 
 fig.write_html("/Users/oana/Documents/github/oena.github.io/assets/html/world_malaria_map.html")
 ```
+
+{% include world_malaria_map.html %}
 
 It's very clear from this plot that Nigeria has far and away more cases of malaria in children under 5 than any other country in the world; unsurprisingly (given that malaria is spread through mosquitos), geographically close countries like Niger, Cameroon, and Burkina Faso have high average death rates in young children too. 
 
@@ -539,8 +524,7 @@ p.fig.suptitle("Correlation of malaria deaths: 1990-2016, children under 5")
 
 
 
-
-![png](output_19_1.png)
+![Image of heatmap]({{ site.url }}/assets/img/output_19_1.png)
 
 
 Unsurprisingly, all of the correlation values are fairly high; however, it's surprising that Nigeria's malaria death rates (in the under 5 age group) are most correlated with Ghana and the Central African Republic, which do not immediately border it. 
