@@ -72,7 +72,7 @@ spotify_df.columns
 
 
 
-    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
+>    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
            'track_album_id', 'track_album_name', 'track_album_release_date',
            'playlist_name', 'playlist_id', 'playlist_genre', 'playlist_subgenre',
            'danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
@@ -91,13 +91,13 @@ print("Is there a unique id per row?")
 spotify_df.shape[0] == len(spotify_df["track_id"].unique())
 ```
 
-    Is there a unique id per row?
+>    Is there a unique id per row?
 
 
 
 
 
-    False
+>    False
 
 
 
@@ -344,7 +344,7 @@ spotify_df.columns
 
 
 
-    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
+>    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
            'track_album_id', 'track_album_name', 'track_album_release_date',
            'playlist_name', 'playlist_id', 'playlist_genre', 'playlist_subgenre',
            'danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
@@ -411,17 +411,17 @@ print("Are there NA values?")
 print(spotify_df_dict["playlist"]["playlist_id"].isnull().any())
 ```
 
-    TRACK:
-    Is there a unique id per row?
-    True
-    Are there NA values?
-    False
+>    TRACK:
+>    Is there a unique id per row?
+>    True
+>    Are there NA values?
+>    False
     
-    PLAYLIST:
-    Is there a unique id per row?
-    False
-    Are there NA values?
-    False
+>    PLAYLIST:
+>    Is there a unique id per row?
+>    False
+>    Are there NA values?
+>    False
 
 
 Seems like `playlist_id` still isn't unique. Let's look more closely at the rows where `playlist_id` is duplicated: 
@@ -606,10 +606,10 @@ print("Are there NA values?")
 print(spotify_df_dict["playlist"]["playlist_uid"].isnull().any())
 ```
 
-    Is there a unique id per row?
-    True
-    Are there NA values?
-    False
+>    Is there a unique id per row?
+>    True
+>    Are there NA values?
+>    False
 
 
 Great! Moving on. 
@@ -884,7 +884,7 @@ spotify_df_dict["playlist"].columns
 
 
 
-    Index(['playlist_id', 'playlist_name', 'playlist_genre', 'playlist_subgenre',
+>    Index(['playlist_id', 'playlist_name', 'playlist_genre', 'playlist_subgenre',
            'playlist_uid'],
           dtype='object')
 
@@ -904,7 +904,7 @@ spotify_df_dict["track"].columns
 
 
 
-    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
+>    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
            'track_album_id', 'track_album_name', 'track_album_release_date',
            'danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
            'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo',
@@ -933,10 +933,10 @@ print("Are there NA values?")
 print(spotify_df_dict["album"]["track_album_id"].isnull().any())
 ```
 
-    Is there a unique id per row?
-    True
-    Are there NA values?
-    False
+>    Is there a unique id per row?
+>    True
+>    Are there NA values?
+>    False
 
 
 Great! Now let's remove those columns from the track DataFrame and we should be all set with 2NF: 
@@ -952,7 +952,7 @@ spotify_df_dict["track"].columns
 
 
 
-    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
+>    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
            'danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
            'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo',
            'duration_ms'],
@@ -1139,10 +1139,10 @@ print("Are there NA values?")
 print(spotify_df_dict["genre"]["playlist_subgenre"].isnull().any())
 ```
 
-    Is there a unique id per row?
-    True
-    Are there NA values?
-    False
+>    Is there a unique id per row?
+>    True
+>    Are there NA values?
+>    False
 
 
 Great. Lastly, let's remove `playlist_genre` and `playlist_subgenre` from the playlist table: 
@@ -1158,7 +1158,7 @@ spotify_df_dict["playlist"].columns
 
 
 
-    Index(['playlist_id', 'playlist_name', 'playlist_uid'], dtype='object')
+ >   Index(['playlist_id', 'playlist_name', 'playlist_uid'], dtype='object')
 
 
 
@@ -1554,8 +1554,8 @@ WHERE playlist_uid IN (
 )
 ```
 
-     * sqlite:///data/spotify.db
-    Done.
+>     * sqlite:///data/spotify.db
+>    Done.
 
 
 
