@@ -9,22 +9,20 @@ comments: false
 readtime: true
 ---
 
-
-Some plots from [this tidy Tuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-11-13) data set.
+To practice making plots in Python, I'll be using [this tidy Tuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-11-13) data set from 2018. Briefly, it shows death rates from Malaria by country, age group, and year. Let's get started! 
 
 
 ### 0. Setup and Get Data 
 
+Packages needed: 
 
 ```python
-%matplotlib inline 
 import pandas as pd 
 import seaborn as sns 
 import plotly.graph_objects as go
-import plotly.io as pio
-pio.renderers.default = "notebook"
 ```
 
+Read in the dataset and take a peek: 
 
 ```python
 # Looking at the dataset corresponding to Malaria deaths by age across
@@ -169,26 +167,25 @@ malaria_deaths_df
 </div>
 
 
+Now let's answer some questions. First: 
 
 ### 1. How much do malaria deaths change across age groups by year?
 
+First, what are the age group categories? 
 
 ```python
-# First, what are the age groups? 
 malaria_deaths_df["age_group"].unique()
 ```
 
+> array(['Under 5', '70 or older', '5-14', '15-49', '50-69'], dtype=object)
 
-
-
-    array(['Under 5', '70 or older', '5-14', '15-49', '50-69'], dtype=object)
-
-
-
+Now, let's plot malaria deaths by year across age groups (and all countries): 
 
 ```python
-# orders for age group, so they make sense
+# define orders for age group in plot, so they make sense
 age_orders = ["Under 5", "5-14", "15-49", "50-69", "70 or older"]
+
+# plot
 (
     sns.
     lineplot(x="year", y="deaths",
@@ -199,16 +196,9 @@ age_orders = ["Under 5", "5-14", "15-49", "50-69", "70 or older"]
     set_title("Malaria deaths across time, by age group")
 )
 ```
-
-
-
-
-    Text(0.5, 1.0, 'Malaria deaths across time, by age group')
-
-
-
-
-![png](output_6_1.png)
+    
+    
+![Image of time series plot]({{ site.url }}/assets/img/output_6_1.png)
 
 
 Wow, deaths in the "Under 5" age group seem disproportionately high. We can see in the plot above that there is some variation by year, but on the whole deaths in the under 5 group range between 12,000-15,000 or so. So, let's take the average in the under 5 age group and see if there are any patterns by country. 
@@ -222,10 +212,7 @@ First, what are the countries represented? Any non-countries included in the cou
 malaria_deaths_df["entity"].unique()
 ```
 
-
-
-
-    array(['Afghanistan', 'Albania', 'Algeria', 'American Samoa',
+>  array(['Afghanistan', 'Albania', 'Algeria', 'American Samoa',
            'Andean Latin America', 'Andorra', 'Angola', 'Antigua and Barbuda',
            'Argentina', 'Armenia', 'Australasia', 'Australia', 'Austria',
            'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados',
@@ -279,7 +266,6 @@ malaria_deaths_df["entity"].unique()
            'Zimbabwe'], dtype=object)
 
 
-
 Mostly seems fine, but let's exclude regions (eg. "World", "Sub-Saharan Africa", etc) since we just want to look at this by country. We also need to reorganize the data a little, because we only want the under 5 data, and we want it averaged by year. 
 
 
@@ -326,7 +312,7 @@ Let's reset the index (we need it as a column), round the number of deaths for r
 
 ```python
 malaria_under5_avg_deaths.reset_index(inplace=True)
-malaria_under5_avg_deaths = malaria_under5_avg_deaths.round(2)
+malaria_under5_avg_deaths = malaria_under5_avg_deaths.round(2) 
 malaria_under5_avg_deaths["text"] = malaria_under5_avg_deaths["entity"] + ": " + malaria_under5_avg_deaths["deaths"].astype(str)
 malaria_under5_avg_deaths.head()
 ```
@@ -405,72 +391,10 @@ malaria_under5_avg_deaths.head()
 </div>
 
 
-
-
-```python
-malaria_under5_deaths.loc[malaria_under5_deaths["deaths"] == malaria_under5_deaths["deaths"].max()]
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Unnamed: 0</th>
-      <th>entity</th>
-      <th>code</th>
-      <th>year</th>
-      <th>age_group</th>
-      <th>deaths</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>3906</th>
-      <td>3907</td>
-      <td>Nigeria</td>
-      <td>NGA</td>
-      <td>2008</td>
-      <td>Under 5</td>
-      <td>261794.558211</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
+And finally, let's plot! Here, we're using a [chloropleth map from Plotly](https://plotly.com/python/choropleth-maps/); because there's a lot more data to look at, it's nice to have a little interactivity in looking at the results:
 
 ```python
-import os 
-os.getcwd()
-```
-
-
-
-
-    '/Users/oana/Documents/github/oena.github.io/ipynbs'
-
-
-
-
-```python
+# Main figure
 fig = go.Figure(data=go.Choropleth(
     locationmode = "country names",
     locations = malaria_under5_avg_deaths["entity"],
@@ -481,15 +405,19 @@ fig = go.Figure(data=go.Choropleth(
     colorbar_title = 'Average under 5 malaria deaths',
 ))
 
+# Add title and layout tweaks
 fig.update_layout(
     title_text='Average under 5 malaria deaths by country: 1990-2016',
     geo=dict(
         showcoastlines=True,
     ),
 )
+
 # Write to html so you can see it outside of this notebook 
 fig.write_html("/Users/oana/Documents/github/oena.github.io/assets/html/world_malaria_map.html")
 ```
+
+{% include world_malaria_map.html %}
 
 It's very clear from this plot that Nigeria has far and away more cases of malaria in children under 5 than any other country in the world; unsurprisingly (given that malaria is spread through mosquitos), geographically close countries like Niger, Cameroon, and Burkina Faso have high average death rates in young children too. 
 
@@ -526,6 +454,7 @@ nigeria_neighbors_under5_deaths = nigeria_neighbors_under5_deaths.pivot(index='y
 nigeria_neighbors_under5_cors = nigeria_neighbors_under5_deaths.corr(method="spearman")
 ```
 
+And now we plot. This time, I'm using a [clustermap](https://seaborn.pydata.org/generated/seaborn.clustermap.html), because it'll show and cluster the correlation values for me: 
 
 ```python
 p =sns.clustermap(nigeria_neighbors_under5_cors, annot=True)
@@ -535,12 +464,9 @@ p.fig.suptitle("Correlation of malaria deaths: 1990-2016, children under 5")
 
 
 
-    Text(0.5, 0.98, 'Correlation of malaria deaths: 1990-2016, children under 5')
 
 
-
-
-![png](output_19_1.png)
+![Image of time series plot]({{ site.url }}/assets/img/output_18_1.png)
 
 
 Unsurprisingly, all of the correlation values are fairly high; however, it's surprising that Nigeria's malaria death rates (in the under 5 age group) are most correlated with Ghana and the Central African Republic, which do not immediately border it. 
