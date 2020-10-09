@@ -37,7 +37,7 @@ spotify_df.head()
 
 
 
-<div>
+<div markdown="1">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
