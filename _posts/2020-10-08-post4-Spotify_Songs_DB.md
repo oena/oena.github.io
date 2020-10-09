@@ -1,3 +1,15 @@
+---
+layout: post
+title: Creating and normalizing a database of Spotify song data
+#subtitle: 
+#gh-repo: oena/oena.github.io
+#gh-badge: [star, fork, follow]
+tags: [python, SQL, SQLite3, Spotify]
+comments: false
+readtime: true
+---
+
+
 # Adding the Spotify Songs dataset to a database
 
 This week, I'll be using the [Tidy Tuesday Spotify Songs dataset](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md) to practice working with SQL a bit. If you're curious, the link to the dataset has more information on how this was gathered too. 
