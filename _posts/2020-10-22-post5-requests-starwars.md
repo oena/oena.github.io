@@ -1,4 +1,12 @@
-# Using the `requests` library with the Star Wars API 
+---
+layout: post
+title: Using the `requests` library with the Star Wars API
+#gh-repo: oena/oena.github.io
+#gh-badge: [star, fork, follow]
+tags: [python, requests, API, starwars]
+comments: false
+readtime: true
+--- 
 
 Today, I'll be practicing using the `requests` library by using the library to get data from the Star Wars API. Our eventual goal is to list the films the oldest person/robot/alien was in; for this, we'll need the names, ages, and films from the API's [People resource](https://swapi.dev/documentation#people). 
 
