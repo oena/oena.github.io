@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Using the `requests` library with the Star Wars API
+title: Using the requests library with the Star Wars API
 #gh-repo: oena/oena.github.io
 #gh-badge: [star, fork, follow]
 tags: [python, requests, API, starwars]
