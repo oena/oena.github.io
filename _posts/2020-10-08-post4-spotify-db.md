@@ -1,4 +1,12 @@
-# Adding the Spotify Songs dataset to a database
+---
+layout: post
+title: Adding the Spotify Songs dataset to a database
+#gh-repo: oena/oena.github.io
+#gh-badge: [star, fork, follow]
+tags: [python, SQL, Spotify]
+comments: false
+readtime: true
+---
 
 This week, I'll be using the [Tidy Tuesday Spotify Songs dataset](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-01-21/readme.md) to practice working with SQL a bit. If you're curious, the link to the dataset has more information on how this was gathered too. 
 
@@ -12,201 +20,13 @@ Let's start by getting the data and setting up.
 import pandas as pd
 import sqlite3
 from sqlalchemy import create_engine
-
-# Set option to display all columns
-pd.set_option('display.max_columns', None)
-pd.set_option('display.max_rows', None)
 ```
 
 
 ```python
-# Read in spotify dataset from github url and take a peek
+# Read in spotify dataset from github url
 spotify_df = pd.read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-21/spotify_songs.csv")
-spotify_df.head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>track_id</th>
-      <th>track_name</th>
-      <th>track_artist</th>
-      <th>track_popularity</th>
-      <th>track_album_id</th>
-      <th>track_album_name</th>
-      <th>track_album_release_date</th>
-      <th>playlist_name</th>
-      <th>playlist_id</th>
-      <th>playlist_genre</th>
-      <th>playlist_subgenre</th>
-      <th>danceability</th>
-      <th>energy</th>
-      <th>key</th>
-      <th>loudness</th>
-      <th>mode</th>
-      <th>speechiness</th>
-      <th>acousticness</th>
-      <th>instrumentalness</th>
-      <th>liveness</th>
-      <th>valence</th>
-      <th>tempo</th>
-      <th>duration_ms</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>6f807x0ima9a1j3VPbc7VN</td>
-      <td>I Don't Care (with Justin Bieber) - Loud Luxur...</td>
-      <td>Ed Sheeran</td>
-      <td>66</td>
-      <td>2oCs0DGTsRO98Gh5ZSl2Cx</td>
-      <td>I Don't Care (with Justin Bieber) [Loud Luxury...</td>
-      <td>2019-06-14</td>
-      <td>Pop Remix</td>
-      <td>37i9dQZF1DXcZDD7cfEKhW</td>
-      <td>pop</td>
-      <td>dance pop</td>
-      <td>0.748</td>
-      <td>0.916</td>
-      <td>6</td>
-      <td>-2.634</td>
-      <td>1</td>
-      <td>0.0583</td>
-      <td>0.1020</td>
-      <td>0.000000</td>
-      <td>0.0653</td>
-      <td>0.518</td>
-      <td>122.036</td>
-      <td>194754</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0r7CVbZTWZgbTCYdfa2P31</td>
-      <td>Memories - Dillon Francis Remix</td>
-      <td>Maroon 5</td>
-      <td>67</td>
-      <td>63rPSO264uRjW1X5E6cWv6</td>
-      <td>Memories (Dillon Francis Remix)</td>
-      <td>2019-12-13</td>
-      <td>Pop Remix</td>
-      <td>37i9dQZF1DXcZDD7cfEKhW</td>
-      <td>pop</td>
-      <td>dance pop</td>
-      <td>0.726</td>
-      <td>0.815</td>
-      <td>11</td>
-      <td>-4.969</td>
-      <td>1</td>
-      <td>0.0373</td>
-      <td>0.0724</td>
-      <td>0.004210</td>
-      <td>0.3570</td>
-      <td>0.693</td>
-      <td>99.972</td>
-      <td>162600</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1z1Hg7Vb0AhHDiEmnDE79l</td>
-      <td>All the Time - Don Diablo Remix</td>
-      <td>Zara Larsson</td>
-      <td>70</td>
-      <td>1HoSmj2eLcsrR0vE9gThr4</td>
-      <td>All the Time (Don Diablo Remix)</td>
-      <td>2019-07-05</td>
-      <td>Pop Remix</td>
-      <td>37i9dQZF1DXcZDD7cfEKhW</td>
-      <td>pop</td>
-      <td>dance pop</td>
-      <td>0.675</td>
-      <td>0.931</td>
-      <td>1</td>
-      <td>-3.432</td>
-      <td>0</td>
-      <td>0.0742</td>
-      <td>0.0794</td>
-      <td>0.000023</td>
-      <td>0.1100</td>
-      <td>0.613</td>
-      <td>124.008</td>
-      <td>176616</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>75FpbthrwQmzHlBJLuGdC7</td>
-      <td>Call You Mine - Keanu Silva Remix</td>
-      <td>The Chainsmokers</td>
-      <td>60</td>
-      <td>1nqYsOef1yKKuGOVchbsk6</td>
-      <td>Call You Mine - The Remixes</td>
-      <td>2019-07-19</td>
-      <td>Pop Remix</td>
-      <td>37i9dQZF1DXcZDD7cfEKhW</td>
-      <td>pop</td>
-      <td>dance pop</td>
-      <td>0.718</td>
-      <td>0.930</td>
-      <td>7</td>
-      <td>-3.778</td>
-      <td>1</td>
-      <td>0.1020</td>
-      <td>0.0287</td>
-      <td>0.000009</td>
-      <td>0.2040</td>
-      <td>0.277</td>
-      <td>121.956</td>
-      <td>169093</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1e8PAfcKUYoKkxPhrHqw4x</td>
-      <td>Someone You Loved - Future Humans Remix</td>
-      <td>Lewis Capaldi</td>
-      <td>69</td>
-      <td>7m7vv9wlQ4i0LFuJiE2zsQ</td>
-      <td>Someone You Loved (Future Humans Remix)</td>
-      <td>2019-03-05</td>
-      <td>Pop Remix</td>
-      <td>37i9dQZF1DXcZDD7cfEKhW</td>
-      <td>pop</td>
-      <td>dance pop</td>
-      <td>0.650</td>
-      <td>0.833</td>
-      <td>1</td>
-      <td>-4.672</td>
-      <td>1</td>
-      <td>0.0359</td>
-      <td>0.0803</td>
-      <td>0.000000</td>
-      <td>0.0833</td>
-      <td>0.725</td>
-      <td>123.976</td>
-      <td>189052</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
 
 Let's also create a SQLite3 database on disk to use to store our data later. Note: if you don't have `sqlmagic`,  you may need to install it first as follows:
 
@@ -252,7 +72,7 @@ spotify_df.columns
 
 
 
-    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
+>    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
            'track_album_id', 'track_album_name', 'track_album_release_date',
            'playlist_name', 'playlist_id', 'playlist_genre', 'playlist_subgenre',
            'danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
@@ -267,13 +87,17 @@ At first glance, it seems like `track_id` might be a good contender for a primar
 
 ```python
 # Check if length of unique track_id values is equal to number of rows 
+print("Is there a unique id per row?")
 spotify_df.shape[0] == len(spotify_df["track_id"].unique())
 ```
 
+>    Is there a unique id per row?
 
 
 
-    False
+
+
+>    False
 
 
 
@@ -321,9 +145,7 @@ spotify_df.loc[spotify_df["track_id"] == first_duplicated_track_id]
       <th>playlist_name</th>
       <th>playlist_id</th>
       <th>playlist_genre</th>
-      <th>playlist_subgenre</th>
-      <th>danceability</th>
-      <th>energy</th>
+      <th>...</th>
       <th>key</th>
       <th>loudness</th>
       <th>mode</th>
@@ -349,9 +171,7 @@ spotify_df.loc[spotify_df["track_id"] == first_duplicated_track_id]
       <td>Todo Éxitos</td>
       <td>2ji5tRQVfnhaX1w9FhmSzk</td>
       <td>pop</td>
-      <td>dance pop</td>
-      <td>0.505</td>
-      <td>0.34</td>
+      <td>...</td>
       <td>4</td>
       <td>-9.005</td>
       <td>1</td>
@@ -375,9 +195,7 @@ spotify_df.loc[spotify_df["track_id"] == first_duplicated_track_id]
       <td>Pop - Pop UK - 2019 - Canadian Pop - 2019 - Pop</td>
       <td>46Cl6dmeiylK6TRGXr7hHe</td>
       <td>pop</td>
-      <td>post-teen pop</td>
-      <td>0.505</td>
-      <td>0.34</td>
+      <td>...</td>
       <td>4</td>
       <td>-9.005</td>
       <td>1</td>
@@ -401,9 +219,7 @@ spotify_df.loc[spotify_df["track_id"] == first_duplicated_track_id]
       <td>2020 Hits &amp; 2019  Hits – Top Global Tracks 🔥🔥🔥</td>
       <td>4JkkvMpVl4lSioqQjeAL0q</td>
       <td>latin</td>
-      <td>latin pop</td>
-      <td>0.505</td>
-      <td>0.34</td>
+      <td>...</td>
       <td>4</td>
       <td>-9.005</td>
       <td>1</td>
@@ -427,9 +243,7 @@ spotify_df.loc[spotify_df["track_id"] == first_duplicated_track_id]
       <td>2020 Hits &amp; 2019  Hits – Top Global Tracks 🔥🔥🔥</td>
       <td>4JkkvMpVl4lSioqQjeAL0q</td>
       <td>latin</td>
-      <td>latin hip hop</td>
-      <td>0.505</td>
-      <td>0.34</td>
+      <td>...</td>
       <td>4</td>
       <td>-9.005</td>
       <td>1</td>
@@ -453,9 +267,7 @@ spotify_df.loc[spotify_df["track_id"] == first_duplicated_track_id]
       <td>Most Popular 2020 TOP 50</td>
       <td>1fqkbjEACMlekdddm5aobE</td>
       <td>r&amp;b</td>
-      <td>urban contemporary</td>
-      <td>0.505</td>
-      <td>0.34</td>
+      <td>...</td>
       <td>4</td>
       <td>-9.005</td>
       <td>1</td>
@@ -479,9 +291,7 @@ spotify_df.loc[spotify_df["track_id"] == first_duplicated_track_id]
       <td>Latest Hits 2020 - Pop, Hip Hop &amp; RnB</td>
       <td>7FqZlaYKkQmVnguJbHuj2a</td>
       <td>r&amp;b</td>
-      <td>hip pop</td>
-      <td>0.505</td>
-      <td>0.34</td>
+      <td>...</td>
       <td>4</td>
       <td>-9.005</td>
       <td>1</td>
@@ -505,9 +315,7 @@ spotify_df.loc[spotify_df["track_id"] == first_duplicated_track_id]
       <td>2010 - 2011 - 2012 - 2013 - 2014 - 2015 - 2016...</td>
       <td>2DjIfVDXGYDgRxw7IJTKVb</td>
       <td>edm</td>
-      <td>pop edm</td>
-      <td>0.505</td>
-      <td>0.34</td>
+      <td>...</td>
       <td>4</td>
       <td>-9.005</td>
       <td>1</td>
@@ -521,6 +329,7 @@ spotify_df.loc[spotify_df["track_id"] == first_duplicated_track_id]
     </tr>
   </tbody>
 </table>
+<p>7 rows × 23 columns</p>
 </div>
 
 
@@ -535,7 +344,7 @@ spotify_df.columns
 
 
 
-    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
+>    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
            'track_album_id', 'track_album_name', 'track_album_release_date',
            'playlist_name', 'playlist_id', 'playlist_genre', 'playlist_subgenre',
            'danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
@@ -602,17 +411,17 @@ print("Are there NA values?")
 print(spotify_df_dict["playlist"]["playlist_id"].isnull().any())
 ```
 
-    TRACK:
-    Is there a unique id per row?
-    True
-    Are there NA values?
-    False
+>    TRACK:
+>    Is there a unique id per row?
+>    True
+>    Are there NA values?
+>    False
     
-    PLAYLIST:
-    Is there a unique id per row?
-    False
-    Are there NA values?
-    False
+>    PLAYLIST:
+>    Is there a unique id per row?
+>    False
+>    Are there NA values?
+>    False
 
 
 Seems like `playlist_id` still isn't unique. Let's look more closely at the rows where `playlist_id` is duplicated: 
@@ -797,10 +606,10 @@ print("Are there NA values?")
 print(spotify_df_dict["playlist"]["playlist_uid"].isnull().any())
 ```
 
-    Is there a unique id per row?
-    True
-    Are there NA values?
-    False
+>    Is there a unique id per row?
+>    True
+>    Are there NA values?
+>    False
 
 
 Great! Moving on. 
@@ -1075,7 +884,7 @@ spotify_df_dict["playlist"].columns
 
 
 
-    Index(['playlist_id', 'playlist_name', 'playlist_genre', 'playlist_subgenre',
+>    Index(['playlist_id', 'playlist_name', 'playlist_genre', 'playlist_subgenre',
            'playlist_uid'],
           dtype='object')
 
@@ -1095,7 +904,7 @@ spotify_df_dict["track"].columns
 
 
 
-    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
+>    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
            'track_album_id', 'track_album_name', 'track_album_release_date',
            'danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
            'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo',
@@ -1124,10 +933,10 @@ print("Are there NA values?")
 print(spotify_df_dict["album"]["track_album_id"].isnull().any())
 ```
 
-    Is there a unique id per row?
-    True
-    Are there NA values?
-    False
+>    Is there a unique id per row?
+>    True
+>    Are there NA values?
+>    False
 
 
 Great! Now let's remove those columns from the track DataFrame and we should be all set with 2NF: 
@@ -1143,7 +952,7 @@ spotify_df_dict["track"].columns
 
 
 
-    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
+>    Index(['track_id', 'track_name', 'track_artist', 'track_popularity',
            'danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness',
            'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo',
            'duration_ms'],
@@ -1330,10 +1139,10 @@ print("Are there NA values?")
 print(spotify_df_dict["genre"]["playlist_subgenre"].isnull().any())
 ```
 
-    Is there a unique id per row?
-    True
-    Are there NA values?
-    False
+>    Is there a unique id per row?
+>    True
+>    Are there NA values?
+>    False
 
 
 Great. Lastly, let's remove `playlist_genre` and `playlist_subgenre` from the playlist table: 
@@ -1349,7 +1158,7 @@ spotify_df_dict["playlist"].columns
 
 
 
-    Index(['playlist_id', 'playlist_name', 'playlist_uid'], dtype='object')
+ >   Index(['playlist_id', 'playlist_name', 'playlist_uid'], dtype='object')
 
 
 
@@ -1397,6 +1206,8 @@ spotify_df_dict["track"].head()
       <th>valence</th>
       <th>tempo</th>
       <th>duration_ms</th>
+      <th>playlist_uid</th>
+      <th>track_album_id</th>
     </tr>
   </thead>
   <tbody>
@@ -1418,9 +1229,32 @@ spotify_df_dict["track"].head()
       <td>0.518</td>
       <td>122.036</td>
       <td>194754</td>
+      <td>0</td>
+      <td>2oCs0DGTsRO98Gh5ZSl2Cx</td>
     </tr>
     <tr>
       <th>1</th>
+      <td>6f807x0ima9a1j3VPbc7VN</td>
+      <td>I Don't Care (with Justin Bieber) - Loud Luxur...</td>
+      <td>Ed Sheeran</td>
+      <td>66</td>
+      <td>0.748</td>
+      <td>0.916</td>
+      <td>6</td>
+      <td>-2.634</td>
+      <td>1</td>
+      <td>0.0583</td>
+      <td>0.1020</td>
+      <td>0.000000</td>
+      <td>0.0653</td>
+      <td>0.518</td>
+      <td>122.036</td>
+      <td>194754</td>
+      <td>442</td>
+      <td>2oCs0DGTsRO98Gh5ZSl2Cx</td>
+    </tr>
+    <tr>
+      <th>2</th>
       <td>0r7CVbZTWZgbTCYdfa2P31</td>
       <td>Memories - Dillon Francis Remix</td>
       <td>Maroon 5</td>
@@ -1437,9 +1271,32 @@ spotify_df_dict["track"].head()
       <td>0.693</td>
       <td>99.972</td>
       <td>162600</td>
+      <td>0</td>
+      <td>63rPSO264uRjW1X5E6cWv6</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>3</th>
+      <td>0r7CVbZTWZgbTCYdfa2P31</td>
+      <td>Memories - Dillon Francis Remix</td>
+      <td>Maroon 5</td>
+      <td>67</td>
+      <td>0.726</td>
+      <td>0.815</td>
+      <td>11</td>
+      <td>-4.969</td>
+      <td>1</td>
+      <td>0.0373</td>
+      <td>0.0724</td>
+      <td>0.004210</td>
+      <td>0.3570</td>
+      <td>0.693</td>
+      <td>99.972</td>
+      <td>162600</td>
+      <td>441</td>
+      <td>63rPSO264uRjW1X5E6cWv6</td>
+    </tr>
+    <tr>
+      <th>4</th>
       <td>1z1Hg7Vb0AhHDiEmnDE79l</td>
       <td>All the Time - Don Diablo Remix</td>
       <td>Zara Larsson</td>
@@ -1456,44 +1313,8 @@ spotify_df_dict["track"].head()
       <td>0.613</td>
       <td>124.008</td>
       <td>176616</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>75FpbthrwQmzHlBJLuGdC7</td>
-      <td>Call You Mine - Keanu Silva Remix</td>
-      <td>The Chainsmokers</td>
-      <td>60</td>
-      <td>0.718</td>
-      <td>0.930</td>
-      <td>7</td>
-      <td>-3.778</td>
-      <td>1</td>
-      <td>0.1020</td>
-      <td>0.0287</td>
-      <td>0.000009</td>
-      <td>0.2040</td>
-      <td>0.277</td>
-      <td>121.956</td>
-      <td>169093</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1e8PAfcKUYoKkxPhrHqw4x</td>
-      <td>Someone You Loved - Future Humans Remix</td>
-      <td>Lewis Capaldi</td>
-      <td>69</td>
-      <td>0.650</td>
-      <td>0.833</td>
-      <td>1</td>
-      <td>-4.672</td>
-      <td>1</td>
-      <td>0.0359</td>
-      <td>0.0803</td>
-      <td>0.000000</td>
-      <td>0.0833</td>
-      <td>0.725</td>
-      <td>123.976</td>
-      <td>189052</td>
+      <td>0</td>
+      <td>1HoSmj2eLcsrR0vE9gThr4</td>
     </tr>
   </tbody>
 </table>
@@ -1733,8 +1554,8 @@ WHERE playlist_uid IN (
 )
 ```
 
-     * sqlite:///data/spotify.db
-    Done.
+>     * sqlite:///data/spotify.db
+>    Done.
 
 
 
