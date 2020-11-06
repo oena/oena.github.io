@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Using the `requests` library with the Star Wars API
+title: Using the requests library with the Star Wars API
 #gh-repo: oena/oena.github.io
 #gh-badge: [star, fork, follow]
 tags: [python, requests, API, starwars]
@@ -47,7 +47,7 @@ data.keys()
 
 
 
-    dict_keys(['count', 'next', 'previous', 'results'])
+> dict_keys(['count', 'next', 'previous', 'results'])
 
 
 
@@ -61,7 +61,7 @@ data["results"][0]
 
 
 
-    {'name': 'Luke Skywalker',
+ >   {'name': 'Luke Skywalker',
      'height': '172',
      'mass': '77',
      'hair_color': 'blond',
@@ -107,7 +107,7 @@ names_and_ages_dict
 
 
 
-    {'Luke Skywalker': '19BBY',
+>    {'Luke Skywalker': '19BBY',
      'C-3PO': '112BBY',
      'R2-D2': '33BBY',
      'Darth Vader': '41.9BBY',
@@ -134,7 +134,7 @@ names_and_ages_dict.pop("R5-D4")
 
 
 
-    'unknown'
+>    'unknown'
 
 
 
@@ -151,7 +151,7 @@ names_and_ages_dict
 
 
 
-    {'Luke Skywalker': 19.0,
+ >   {'Luke Skywalker': 19.0,
      'C-3PO': 112.0,
      'R2-D2': 33.0,
      'Darth Vader': 41.9,
@@ -173,7 +173,7 @@ max(names_and_ages_dict, key=names_and_ages_dict.get)
 
 
 
-    'C-3PO'
+ >   'C-3PO'
 
 
 
@@ -208,7 +208,7 @@ c3po_dict
 
 
 
-    {'Name': 'C-3PO',
+ >   {'Name': 'C-3PO',
      'Films': ['A New Hope',
       'The Empire Strikes Back',
       'Return of the Jedi',
