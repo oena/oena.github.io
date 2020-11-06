@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Using `streamlit` to build a simple dashboard
+title: Using streamlit to build a simple dashboard
 #gh-repo: oena/oena.github.io
 #gh-badge: [star, fork, follow]
 tags: [python, streamlit, PhDs]
